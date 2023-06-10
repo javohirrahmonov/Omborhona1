@@ -13,6 +13,6 @@ class Statistika(models.Model):
     nasiy = models.PositiveIntegerField()
 
     def save(self,*args,**kwargs):
-        self.umumiy_summa = int(self.miqdor) * int(self.maxsulot.narx)
-        self.nasiya = self.umumiy_summa - int(self.tolandi)
-        super
+        self.umumiy_summa = int(self.miqdor) * int(self.mahsulot.narx)
+        self.nasiy = self.umumiy_summa - int(self.tolandi)
+        super(Statistika, self).save(*args, **kwargs)

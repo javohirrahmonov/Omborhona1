@@ -41,7 +41,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link active">Home</a>
+        <a href="/bolimlar/" class="nav-link active">Home</a>
       </li>
     </ul>
 
@@ -78,19 +78,19 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header">Menu</li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="/statistics/" class="nav-link active">
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Statistics</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/clientlar/" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Clients</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/mahsulotlar/" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Products</p>
             </a>
@@ -113,8 +113,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Clients</li>
+              <li class="breadcrumb-item"><a href="/bolimlar/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/clientlar/">Clients</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'logout' %}">Logout</a></li>
             </ol>
           </div><!-- /.col -->
@@ -127,6 +127,10 @@
             <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Statistika qo'shish</button>
+                    <form  method="get">
+                        <input name="soz" type="text">
+                         <button type="submit">Search</button>
+                    </form>
                 </div>
             </div>
             <div class="card-body">
@@ -144,17 +148,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% for i in statistikalar %}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Product nomi, brend nomi</td>
-                            <td>Client ismi, do'koni nomi</td>
-                            <td>2022.06.13</td>
-                            <td>30</td>
-                            <td>1260000 so'm</td>
-                            <td>560000 so'm</td>
-                            <td>700000 so'm</td>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{i.mahsulot.nom}}, {{i.mahsulot.brend}}</td>
+                            <td>{{i.mijoz.ism}}, {{i.mijoz.nom}}</td>
+                            <td>{{i.sana}}</td>
+                            <td>{{i.miqdor}}</td>
+                            <td>{{i.umumiy_summa}} so'm</td>
+                            <td>{{i.tolandi}} so'm</td>
+                            <td>{{i.nasiy}} so'm</td>
                             <td><a href="#"><button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button></a></td>
                         </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -173,28 +179,36 @@
           </div>
     
           <!-- Modal body -->
-          <form action="#" id="new-product-form" method="post">{% csrf_token %}
+          <form id="new-product-form" method="post">{% csrf_token %}
             <div class="modal-body">
-              <label for="product">Product:</label>
-             <input type="datetime-local" name="sana" placeholder="Sana" id="product" class="form-control" required>
-                <br>
-              <label for="client">Client:</label>
-                <input type="datetime-local" name="sana" placeholder="Sana" id="client" class="form-control" required>
+                <label for="product">Product:</label>
+                 <select name="m" id="product" class="form-control" required>
+                     {%for i in mahsulotlar %}
+                     <option value="{{i.id}}">{{i.nom}}, {{i.brend}}</option>
+                     {%endfor%}
+                 </select>
+                 <br>
+                <label for="client">Client:</label>
+                 <select name="c" id="client" class="form-control" required>
+                     {%for i in mijozlar %}
+                     <option value="{{i.id}}">{{i.ism}}, {{i.nom}}</option>
+                     {%endfor%}
+                 </select>
               <br>
               <label for="sana">Sana:</label>
-              <input type="datetime-local" name="sana" placeholder="Sana" id="sana" class="form-control" required>
+              <input type="datetime-local" name="s" placeholder="Sana" id="sana" class="form-control" required>
               <br>
                 <label for="miqdor">Miqdor:</label>
-              <input type="number" name="miqdor" placeholder="Miqdor" id="miqdor" class="form-control" required>
+              <input type="number" name="miq" placeholder="Miqdor" id="miqdor" class="form-control" required>
               <br>
               <label for="umumiy_summa">Umumiy summa:</label>
-              <input type="number" name="summa" placeholder="Umumiy summa" id="umumiy_summa" class="form-control" required>
+              <input type="number" name="u_s" placeholder="Umumiy summa" id="umumiy_summa" class="form-control" required>
               <br>
                 <label for="nasiya">Nasiya:</label>
-              <input type="number" name="nasiya" placeholder="Nasiya" id="nasiya" class="form-control" required>
+              <input type="number" name="n" placeholder="Nasiya" id="nasiya" class="form-control" required>
               <br>
                 <label for="tolandi">To'landi:</label>
-              <input type="number" name="tolandi" placeholder="To'landi" id="tolandi" class="form-control" required>
+              <input type="number" name="t" placeholder="To'landi" id="tolandi" class="form-control" required>
               <br>
             </div>
     

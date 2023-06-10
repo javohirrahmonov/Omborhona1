@@ -56,23 +56,26 @@
           <!-- Modal Header -->
 
           <!-- Modal body -->
-          <form action="#" id="edit-product-form" >
+          <form method="post" id="edit-product-form" >{%csrf_token%}
               <label for="edit-product-name">FIO:</label>
-              <input type="text" name="client_name" value="{{client.name}}" placeholder="Mijoz to'liq ismi..." id="edit-product-name" class="form-control" required>
+              <input type="text" name="i" value="{{client.ism}}" id="edit-product-ism" class="form-control" required>
                 <br>
               <label for="edit-product-name">Do'kon nomi:</label>
-              <input type="text" name="client_shop" value="{{client.shop_name}}" placeholder="Do'kon nomi..." id="edit-product-brend" class="form-control" required>
+              <input type="text" name="n" value="{{client.nom}}" id="edit-product-nom" class="form-control" required>
               <br>
               <label for="edit-product-name">Telefon raqami:</label>
-              <input type="text" name="client_phone" value="{{client.phone}}" placeholder="Telefon raqami..." id="edit-product-price" class="form-control" required>
+              <input type="text" name="t" value="{{client.tel}}" id="edit-product-tel" class="form-control" required>
               <br>
               <label for="edit-product-name">Manzili:</label>
-              <input type="text" name="client_address" value="{{client.address}}" placeholder="Mijoz manzili..." id="edit-product-amount" class="form-control" required>
+              <input type="text" name="m" value="{{client.manzil}}" id="edit-product-manzil" class="form-control" required>
+              <br>
+              <label for="edit-product-name">Qarz:</label>
+              <input type="text" name="q" value="{{client.qarz}}" id="edit-product-qarz" class="form-control" required>
               <br>
 
           <!-- Modal footer -->
             <button type="submit" class="btn btn-success">Yangilash</button>
-              <a href="/clients/"><button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button></a>
+              <a href="/clientlar/"><button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button></a>
 
       </form>
 

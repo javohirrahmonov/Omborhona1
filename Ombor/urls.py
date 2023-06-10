@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from userapp.views import *
 from asosiy.views import *
+from statsapp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,9 @@ urlpatterns = [
     path('logout/', logout_view , name = 'logout'),
     path('mahsulotlar/', mahsulotlar , name = 'mahsulotlar'),
     path('clientlar/', clientlar , name = 'clientlar'),
+    path('statistics/', statistikalar , name = 'statistikalar'),
     path('product_delete/<int:pk>/', mahsulot_ochir),
+    path('client_delete/<int:pk>/', client_ochir),
     path('product_edit/<int:son>/', product_edit),
+    path('client_edit/<int:son>/', mijoz_edit),
 ]

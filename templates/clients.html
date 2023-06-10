@@ -38,7 +38,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
+        <a href="/bolimalr/" class="nav-link">Home</a>
       </li>
     </ul>
 
@@ -75,19 +75,19 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header">Menu</li>
           <li class="nav-item">
-            <a href="/stats/" class="nav-link">
+            <a href="/statistics/" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Statistics</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/clients/" class="nav-link active">
+            <a href="/clientlar/" class="nav-link active">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Clients</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/goods/" class="nav-link">
+            <a href="/mahsulotlar/" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Products</p>
             </a>
@@ -110,9 +110,9 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-             <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Clients</li>
-              <li class="breadcrumb-item"><a href="/logout/">Logout</a></li>
+             <li class="breadcrumb-item"><a href="/bolimlar/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/clientlar/">Clients</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'logout' %}">Logout</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -146,7 +146,8 @@
                             <td>{{i.nom}}</td>
                             <td>{{i.tel}}</td>
                             <td>{{i.manzil}}</td>
-                            <td><a href="#"><button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button></a></td>
+                            <td><a href="/client_edit/{{i.id}}"><button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button></a></td>
+                            <td><a href="/client_delete/{{i.id}}/"><button type="submit" class="btn btn-danger" data-toggle="modal">O'chirish</button></a></td>
                         </tr>
                     {%endfor%}
                     </tbody>
@@ -166,19 +167,22 @@
           </div>
     
           <!-- Modal body -->
-          <form action="#" id="new-product-form" >
+          <form method="post"> {% csrf_token %}
             <div class="modal-body">
               <label for="new-product-name">FIO:</label>
-              <input type="text" name="client_name" placeholder="Mijoz to'liq ismi..." id="new-product-name" class="form-control" required>
+              <input type="text" name="i" placeholder="Mijoz to'liq ismi..." id="new-product-name" class="form-control" required>
                 <br>
               <label for="new-product-name">Do'kon nomi:</label>
-              <input type="text" name="client_shop" placeholder="Do'kon nomi..." id="new-product-brend" class="form-control" required>
+              <input type="text" name="n" placeholder="Do'kon nomi..." id="new-product-brend" class="form-control" required>
               <br>
               <label for="new-product-name">Telefon raqami:</label>
-              <input type="text" name="client_phone" placeholder="Telefon raqami..." id="new-product-price" class="form-control" required>
+              <input type="text" name="t" placeholder="Telefon raqami..." id="new-product-price" class="form-control" required>
               <br>
               <label for="new-product-name">Manzili:</label>
-              <input type="text" name="client_address" placeholder="Mijoz manzili..." id="new-product-amount" class="form-control" required>
+              <input type="text" name="m" placeholder="Mijoz manzili..." id="new-product-amount" class="form-control" required>
+              <br>
+              <label for="new-product-name">Qarz:</label>
+              <input type="number" name="q" placeholder="Mijoz qarz qoldig'i..." id="new-product-qarz" class="form-control" required>
               <br>
             </div>
     

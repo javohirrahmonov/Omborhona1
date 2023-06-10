@@ -3,6 +3,7 @@ from .models import *
 from django.contrib.auth import authenticate,login , logout
 from django.contrib import messages
 from userapp.models import Ombor
+from statsapp.models import Statistika
 
 
 def bolimlar(request):
@@ -54,9 +55,40 @@ def product_edit(request,son):
 
 def clientlar(request):
     if request.user.is_authenticated:
+        if request.method=='POST':
+            Mijoz.objects.create(
+                ism = request.POST['i'],
+                nom = request.POST['n'],
+                tel =request.POST['t'],
+                manzil = request.POST['m'],
+                qarz = request.POST['q'],
+                ombor = Ombor.objects.get(user=request.user)
+            )
+            return redirect("clientlar")
         content = {
             'clientlar': Mijoz.objects.filter(ombor__user=request.user)
         }
         return render(request,'clients.html',content)
+
+def client_ochir(request,pk):
+    if request.user.is_authenticated:
+        Mijoz.objects.filter(id=pk ,ombor__user=request.user).delete()
+        return redirect('clientlar')
+    return redirect('login')
+
+def mijoz_edit(request,son):
+    if request.method=='POST':
+        Mijoz.objects.filter(id=son).update(
+        ism = request.POST.get('i'),
+        nom =request.POST.get('n'),
+        tel =request.POST.get('t'),
+        qarz = request.POST['q'],
+        manzil = request.POST['m'],
+        )
+        return redirect('clientlar')
+    content = {
+        'client': Mijoz.objects.get(id=son)
+    }
+    return render(request,'client_update.html',content)
 
 
